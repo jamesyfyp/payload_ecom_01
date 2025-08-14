@@ -4,7 +4,13 @@ import { RichText } from '@/components/RichText'
 import ContactModalButton from '@/components/contact-modal'
 import { PlpImageGallery } from '@/components/plpImageGallery'
 
-export default async function ProductPage({ params }: { params: { slug: string } }) {
+interface PageProps {
+  params: {
+    slug: string
+  }
+}
+
+export default async function ProductPage({ params }: PageProps) {
   const product: Product | null = await fetchProductBySlug(params.slug)
 
   if (!product) return <div>Product not found.</div>
@@ -21,7 +27,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
   return (
     <div className="flex justify-center">
-      <div className="card  p-6 w-[350px] md:w-[750px] m-10 bg-neutral-700 ">
+      <div className="card p-6 w-[350px] md:w-[750px] m-10 bg-neutral-700">
         <h1 className="text-4xl font-bold text-accent">{product.title}</h1>
         {image && <PlpImageGallery primaryImage={image} images={images} />}
         <div className="text-white pt-20 md:pt-2 md:span-2 [&_h2]:font-black [&_ul>li]:list-disc [&_ul]:pl-5 p-2">
